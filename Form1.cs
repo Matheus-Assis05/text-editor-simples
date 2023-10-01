@@ -17,25 +17,61 @@ namespace text_editor_simples
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Receber o texto digitado pelo o usuario e atribui-lo a um valor
-        }
-      
+            //MENU ARQUIVO: NOVO
 
-        private void salvarComoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //Pegar o texto do usuario e criar um arquivo de texto com o conteudo
+            conteudoTxt.Clear(); //limpa todo o conteudo da txtbox
+            
+            OpenFileDialog abrirArquivo = new OpenFileDialog(); //método para abrir arquivos
+            abrirArquivo.Title = "Selecione um arquivo...";
+            abrirArquivo.Filter = "Text Document (*.txt) | *.txt|All Files(*.*)| *.*"; //filtra para o usuario procurar por .txt's
+
+            if(abrirArquivo.ShowDialog() == DialogResult.OK)
+            {
+                conteudoTxt.LoadFile(abrirArquivo.FileName, RichTextBoxStreamType.PlainText); //Carrega o arquivo de texto para a txtbox
+                this.Text = abrirArquivo.FileName;
+            }
+            else
+            {
+                MessageBox.Show("ERRO AO CARREGAR O ARQUIVO");
+            }
+
         }
 
-        private void salvarTudoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void salvarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Salvar no diretorio do arquivo relacionado o texto digitado
+            conteudoTxt.Clear(); //limpa todo o conteudo da txtbox
+
+            SaveFileDialog salvarArquivo = new SaveFileDialog(); //método que salva arquivos
+            salvarArquivo.Title = "Salvar Arquivo";
+            salvarArquivo.Filter = "Text Document (*.txt) | *.txt|All Files(*.*)| *.*";
+
+            if(salvarArquivo.ShowDialog() == DialogResult.OK)
+            {
+                conteudoTxt.SaveFile(salvarArquivo.FileName, RichTextBoxStreamType.PlainText);
+                this.Text = salvarArquivo.FileName;
+            }
         }
 
-        private void sobreToolStripMenuItem_Click(object sender, EventArgs e)
+        private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Abrir um pop-up contendo informacoes do projeto
+            Close();
+        }
+
+        private void desfazerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            conteudoTxt.Undo();
+        }
+
+        private void refazerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            conteudoTxt.Redo();
+        }
+
+        private void conteudoTxt_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
