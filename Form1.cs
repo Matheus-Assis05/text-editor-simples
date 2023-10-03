@@ -41,9 +41,9 @@ namespace text_editor_simples
 
         private void salvarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            conteudoTxt.Clear(); //limpa todo o conteudo da txtbox
+            //MENU ARQUIVO: SALVAR
 
-            SaveFileDialog salvarArquivo = new SaveFileDialog(); //método que salva arquivos
+            SaveFileDialog salvarArquivo = new SaveFileDialog(); //método que salva arquivos da mesma forma do que abre
             salvarArquivo.Title = "Salvar Arquivo";
             salvarArquivo.Filter = "Text Document (*.txt) | *.txt|All Files(*.*)| *.*";
 
@@ -72,6 +72,51 @@ namespace text_editor_simples
         private void conteudoTxt_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void fonteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Bem auto-explicativo
+
+            FontDialog fonte = new FontDialog();
+            if (fonte.ShowDialog() == DialogResult.OK)
+            {
+                conteudoTxt.Font = fonte.Font;
+            }
+        }
+
+        private void coresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog cores = new ColorDialog();
+            if(cores.ShowDialog() == DialogResult.OK)
+            {
+                conteudoTxt.ForeColor = cores.Color;
+            }
+        }
+
+        private void copiarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            conteudoTxt.Copy();
+        }
+
+        private void colarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            conteudoTxt.Paste();
+        }
+
+        private void recortarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            conteudoTxt.Cut();
+        }
+
+        private void selecionarTodosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            conteudoTxt.SelectAll();
+        }
+
+        private void sobreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Clone do notepad do windows feito por github.com/Matheus-Assis05 - 👍");
         }
     }
 }
